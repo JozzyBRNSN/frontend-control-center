@@ -1,5 +1,7 @@
 <script>
+import ItemRow from "./components/ItemRow.vue";
 export default {
+	components: { ItemRow },
 	data() {
 		return {
 			items: [
@@ -30,10 +32,15 @@ export default {
 </script>
 
 <template>
-	<li v-for="item in items" :key="item.id">
-		{{ item.id }}. {{ item.title }}
-		<button @click="removeItem(item.id)">Удалить</button>
-	</li>
+	<ul>
+		<ItemRow
+			v-for="item in items"
+			:key="item.id"
+			:id="item.id"
+			:title="item.title"
+			@remove="removeItem"
+		/>
+	</ul>
 	<input type="text" v-model="value" />
 	<button @click="addNewItem">Добавить</button>
 </template>
