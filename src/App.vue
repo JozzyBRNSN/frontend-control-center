@@ -26,6 +26,12 @@ export default {
 		removeItem(id) {
 			this.items = this.items.filter(item => item.id !== id);
 		},
+		updateItem({ id, title }) {
+			const item = this.items.find(item => item.id === id);
+			if (item) {
+				item.title = title;
+			}
+		},
 	},
 };
 </script>
@@ -38,8 +44,9 @@ export default {
 			:id="item.id"
 			:title="item.title"
 			@remove="removeItem"
+			@update="updateItem"
 		/>
 	</ul>
-	<input type="text" v-model="value" @keyup.enter='addNewItem' />
+	<input type="text" v-model="value" @keyup.enter="addNewItem" />
 	<button @click="addNewItem">Добавить</button>
 </template>

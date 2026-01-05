@@ -1,5 +1,11 @@
 <script>
 export default {
+	data() {
+		return {
+			isEditing: false,
+			editTitle: this.title,
+		};
+	},
 	props: {
 		id: {
 			type: Number,
@@ -14,13 +20,34 @@ export default {
 		handleRemove() {
 			this.$emit("remove", this.id);
 		},
+		startEdit() {
+			this.isEditing = true;
+			this.editTitle = this.title;
+		},
+		cancelEdit() {
+			this.isEditing = false;
+			this.editTitle = this.title;
+		},
+		saveEdit() {
+			this.$emit("update", {
+				id: this.id,
+				title: this.editTitle,
+			});
+			this.cancelEdit();
+		},
 	},
 };
 </script>
 
 <template>
-	<li>
-		{{ id }}. {{ title }}
+	<li v-if="!isEditing">
+		<span>{{ id }}. {{ title }}</span>
+		<button @click="startEdit">Редактировать</button>
 		<button @click="handleRemove">Удалить</button>
+	</li>
+	<li v-else>
+		<input v-model="editTitle" />
+		<button @click="saveEdit">Сохранить</button>
+		<button @click="cancelEdit">Отмена</button>
 	</li>
 </template>
