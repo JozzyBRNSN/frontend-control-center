@@ -7,11 +7,7 @@ export default {
 	},
 	data() {
 		return {
-			items: [
-				{ id: 1, title: "Доделать таску" },
-				{ id: 2, title: "Закрыть день" },
-				{ id: 3, title: "Спать" },
-			],
+			items: [],
 			value: "",
 		};
 	},
@@ -44,6 +40,6 @@ export default {
 			@remove="removeItem"
 		/>
 	</ul>
-	<input type="text" v-model="value" />
+	<input type="text" v-model="value" @keyup.enter='addNewItem' />
 	<button @click="addNewItem">Добавить</button>
 </template>
