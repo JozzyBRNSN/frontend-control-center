@@ -15,6 +15,10 @@ export default {
 			type: String,
 			required: true,
 		},
+		completed: {
+			type: Boolean,
+			required: true,
+		},
 	},
 	methods: {
 		handleRemove() {
@@ -41,6 +45,7 @@ export default {
 
 <template>
 	<li v-if="!isEditing">
+		<input type="checkbox" :checked="completed" @change="$emit('toggle')" />
 		<span>{{ id }}. {{ title }}</span>
 		<button @click="startEdit">Редактировать</button>
 		<button @click="handleRemove">Удалить</button>

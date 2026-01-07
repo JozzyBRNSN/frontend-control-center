@@ -70,8 +70,19 @@ li {
 	gap: 1rem;
 }
 
-li span, li input {
+li span,
+li input {
 	flex: 1;
+	font-weight: 500;
+	font-size: 0.875rem;
+	font-family: inherit;
+	color: #ffffff;
+}
+
+li input {
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	transition: all 0.2s ease;
 }
 
 li:hover {
