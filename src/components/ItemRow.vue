@@ -49,6 +49,7 @@ export default {
 		<span>{{ id }}. {{ title }}</span>
 		<button @click="startEdit">Редактировать</button>
 		<button @click="handleRemove">Удалить</button>
+		<RouterLink :to="`/tasks/${id}`">Подробнее</RouterLink>
 	</li>
 	<li v-else>
 		<input v-model="editTitle" />
