@@ -4,9 +4,6 @@ import { useTaskStore } from "../stores/tasks.js";
 export default {
 	props: ["id"],
 	methods: {
-		fetchTaskById() {
-			this.taskStore.fetchTaskById(this.id);
-		},
 		goBack() {
 			this.$router.push({ name: "Tasks" });
 		},
@@ -16,7 +13,7 @@ export default {
 			return useTaskStore();
 		},
 		currentTask() {
-			return this.taskStore.currentTask;
+			return this.taskStore.findTask(this.id);
 		},
 		isTaskLoading() {
 			return this.taskStore.isTaskLoading;
@@ -24,19 +21,23 @@ export default {
 		isError() {
 			return this.taskStore.isError;
 		},
-	},
-	mounted() {
-		return this.fetchTaskById();
+		displayIndex() {
+			return this.$route.query.index || null;
+		},
 	},
 };
 </script>
 
 <template>
 	<div>
-		<div v-if="isTaskLoading">Загрузка...</div>
+		<div v-if="!currentTask">Задача не найдена</div>
+		<div v-else-if="isTaskLoading">Загрузка...</div>
 		<div v-else-if="isError">Ошибка загрузки задачи</div>
 		<div v-else>
-			<h1>{{ currentTask?.title }}</h1>
+			<h1>
+				<span v-if="displayIndex">#{{ displayIndex }}</span>
+				. {{ currentTask?.title }}
+			</h1>
 			<p>Статус: {{ currentTask?.completed ? "Выполнено" : "Активно" }}</p>
 			<button @click="goBack">Назад к списку</button>
 			<br />
@@ -44,10 +45,9 @@ export default {
 			<hr />
 			<br />
 			<h2>Детальная информация</h2>
-			<br />
 			<span
-				>Номер пользователя добавившего задачу:
-				<strong>{{ currentTask?.userId }}</strong></span
+				>ID Задачи: 
+				<strong>{{ currentTask?.id || "ID не найден" }}</strong></span
 			>
 		</div>
 	</div>

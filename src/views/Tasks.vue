@@ -30,6 +30,10 @@ export default {
 		setFilter(filter) {
 			this.activeFilter = filter;
 		},
+		clearData() {
+			localStorage.removeItem("tasks");
+			location.reload();
+		},
 	},
 	computed: {
 		taskStore() {
@@ -61,7 +65,9 @@ export default {
 		},
 	},
 	mounted() {
-		this.taskStore.fetchTasks();
+		if (this.taskStore.items.length === 0) {
+			this.taskStore.fetchTasks();
+		}
 	},
 };
 </script>
@@ -78,18 +84,22 @@ export default {
 			<FilterButtons :activeFilter="activeFilter" @set-filter="setFilter" />
 			<ul>
 				<ItemRow
-					v-for="item in visibleItems"
+					v-for="(item, index) in visibleItems"
 					:key="item.id"
 					:id="item.id"
 					:title="item.title"
 					:completed="item.completed"
+					:display-index="index + 1"
 					@remove="removeTask"
 					@update="updateTask"
 					@toggle="toggleTask(id)"
 				/>
 			</ul>
 			<input type="text" v-model="value" @keyup.enter="addNewTask" />
-			<button @click="addNewTask">Добавить</button>
+			<div class="tasks__buttons">
+				<button class="add-item" @click="addNewTask">Добавить</button>
+				<button class="data-clear" @click="clearData">Сбросить данные</button>
+			</div>
 		</div>
 	</div>
 </template>

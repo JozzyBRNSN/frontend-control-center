@@ -344,7 +344,11 @@ a:focus {
 	padding: 3rem 2rem;
 	color: rgba(255, 255, 255, 0.88);
 	font-size: 1.125rem;
-	background: linear-gradient(135deg, rgba(100, 108, 255, 0.12), rgba(100, 108, 255, 0.05));
+	background: linear-gradient(
+		135deg,
+		rgba(100, 108, 255, 0.12),
+		rgba(100, 108, 255, 0.05)
+	);
 	border: 1px solid rgba(100, 108, 255, 0.25);
 	border-radius: 12px;
 	box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
@@ -360,6 +364,26 @@ a:focus {
 /* Form Container */
 #app > input + button {
 	width: 100%;
+}
+
+.tasks__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 20px;
+}
+
+.add-item {
+	background-color: #646cff;
+}
+
+.data-clear {
+	background-color: #dc3545;
+}
+
+.data-clear:hover {
+	background-color: #c82333;
+	box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
 }
 
 /* Light Theme */
@@ -490,7 +514,11 @@ a:focus {
 	#app > div > div:first-child,
 	#app > div > div:nth-child(2) {
 		color: rgba(0, 0, 0, 0.8);
-		background: linear-gradient(135deg, rgba(100, 108, 255, 0.1), rgba(100, 108, 255, 0.04));
+		background: linear-gradient(
+			135deg,
+			rgba(100, 108, 255, 0.1),
+			rgba(100, 108, 255, 0.04)
+		);
 		border-color: rgba(100, 108, 255, 0.2);
 	}
 
@@ -532,6 +560,15 @@ a:focus {
 	}
 
 	.filter-buttons button {
+		width: 100%;
+	}
+
+	.tasks__buttons {
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.tasks__buttons > button {
 		width: 100%;
 	}
 

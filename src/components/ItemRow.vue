@@ -16,6 +16,10 @@ export default {
 			type: Boolean,
 			required: true,
 		},
+		displayIndex: {
+			type: Number,
+			required: true,
+		},
 	},
 	data() {
 		return {
@@ -54,10 +58,17 @@ export default {
 <template>
 	<li v-if="!isEditing">
 		<input type="checkbox" :checked="completed" @change="toggleStatus" />
-		<span>{{ id }}. {{ title }}</span>
+		<span>{{ displayIndex }}. {{ title }}</span>
 		<button @click="startEdit">Редактировать</button>
 		<button @click="handleRemove">Удалить</button>
-		<RouterLink :to="`/tasks/${id}`">Подробнее</RouterLink>
+		<RouterLink
+			:to="{
+				path: `/tasks/${id}`,
+				query: { index: displayIndex },
+			}"
+		>
+			Подробнее
+		</RouterLink>
 	</li>
 	<li v-else>
 		<input v-model="editTitle" />
